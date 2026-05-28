@@ -27,8 +27,8 @@ pipeline {
             steps {
                 echo 'Running flake8 linter...'
                 sh '''
-                    pip install -r requirements-dev.txt --quiet
-                    python -m flake8 app/
+                    pip3 install -r requirements-dev.txt --quiet
+                    python3 -m flake8 app/
                 '''
             }
         }
@@ -37,8 +37,8 @@ pipeline {
             steps {
                 echo 'Running unit tests...'
                 sh '''
-                    pip install -r requirements-dev.txt --quiet
-                    python -m pytest tests/ -v --junit-xml=test-results.xml
+                    pip3 install -r requirements-dev.txt --quiet
+                    python3 -m pytest tests/ -v --junit-xml=test-results.xml
                 '''
             }
             post {
