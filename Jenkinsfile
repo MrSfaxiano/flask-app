@@ -28,7 +28,7 @@ pipeline {
                 echo 'Running flake8 linter...'
                 sh '''
                     docker run --rm \
-                        -v $(pwd):/app \
+                        -v ${WORKSPACE}:/app \
                         -w /app \
                         python:3.12-slim \
                         sh -c "pip install flake8 --quiet && python -m flake8 app/"
@@ -41,7 +41,7 @@ pipeline {
                 echo 'Running unit tests...'
                 sh '''
                     docker run --rm \
-                        -v $(pwd):/app \
+                        -v ${WORKSPACE}:/app \
                         -w /app \
                         python:3.12-slim \
                         sh -c "pip install -r requirements-dev.txt --quiet && python -m pytest tests/ -v --junit-xml=test-results.xml"
@@ -110,5 +110,3 @@ pipeline {
         }
     }
 }
-
-
