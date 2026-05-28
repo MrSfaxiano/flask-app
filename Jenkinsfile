@@ -31,7 +31,7 @@ pipeline {
                         -v ${WORKSPACE}:/app \
                         -w /app \
                         python:3.12-slim \
-                        sh -c "pip install flake8 --quiet && python -m flake8 app/"
+                        sh -c 'pip install flake8 --quiet && python -m flake8 app/'
                 """
             }
         }
@@ -44,7 +44,7 @@ pipeline {
                         -v ${WORKSPACE}:/app \
                         -w /app \
                         python:3.12-slim \
-                        sh -c "pip install -r requirements-dev.txt --quiet && python -m pytest tests/ -v --junit-xml=test-results.xml"
+                        sh -c 'pip install -r requirements-dev.txt --quiet && python -m pytest tests/ -v --junit-xml=test-results.xml'
                 """
             }
             post {
