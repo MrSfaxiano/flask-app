@@ -27,8 +27,11 @@ pipeline {
             steps {
                 echo 'Running flake8 linter...'
                 sh '''
-                    pip install -r requirements-dev.txt --quiet
-                    python -m flake8 app/
+                    docker run --rm \
+                        -v $(pwd):/app \
+                        -w /app \
+                        python:3.12-slim \
+                        sh -c "pip install flake8 --quiet && python -m flake8 app/"
                 '''
             }
         }
@@ -37,8 +40,11 @@ pipeline {
             steps {
                 echo 'Running unit tests...'
                 sh '''
-                    pip install -r requirements-dev.txt --quiet
-                    python -m pytest tests/ -v --junit-xml=test-results.xml
+                    docker run --rm \
+                        -v $(pwd):/app \
+                        -w /app \
+                        python:3.12-slim \
+                        sh -c "pip install -r requirements-dev.txt --quiet && python -m pytest tests/ -v --junit-xml=test-results.xml"
                 '''
             }
             post {
@@ -96,7 +102,7 @@ pipeline {
             echo "Pipeline succeeded. Image: ${env.IMAGE_NAME}:${env.IMAGE_TAG}"
         }
         failure {
-            echo "Pipeline failed at stage. Check logs above."
+            echo "Pipeline failed. Check logs above."
         }
         always {
             sh 'docker logout || true'
@@ -104,7 +110,3 @@ pipeline {
         }
     }
 }
-
-
-
-
