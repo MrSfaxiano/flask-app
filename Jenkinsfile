@@ -65,8 +65,10 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Building Docker image ${env.IMAGE_NAME}:${env.IMAGE_TAG}..."
-                sh "docker build -t ${env.IMAGE_NAME}:${env.IMAGE_TAG} ."
+                sh "docker build --network host -t ${env.IMAGE_NAME}:${env.IMAGE_TAG} ."
                 sh "docker tag ${env.IMAGE_NAME}:${env.IMAGE_TAG} ${env.IMAGE_NAME}:latest"
+                
+                
             }
         }
 
