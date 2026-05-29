@@ -1,2 +1,2 @@
 FROM python:3.12-slim
-RUN pip install flake8 pytest flask
+RUN pip install flake8 pytest pytest-cov flask

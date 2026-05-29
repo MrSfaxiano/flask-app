@@ -1,3 +1,6 @@
 #!/bin/sh
-pip install -r requirements-dev.txt --quiet
-python -m pytest tests/ -v --junit-xml=test-results.xml
+python -m pytest tests/ -v \
+    --junit-xml=test-results.xml \
+    --cov=app \
+    --cov-report=xml:coverage.xml \
+    --cov-fail-under=70
