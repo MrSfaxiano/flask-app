@@ -31,7 +31,7 @@ pipeline {
                         --dns 8.8.8.8 \
                         -v jenkins-cicd_jenkins_home:/var/jenkins_home \
                         -w /var/jenkins_home/workspace/flask-app \
-                        python:3.12-slim \
+                        flask-ci:latest \
                         sh /var/jenkins_home/workspace/flask-app/lint.sh 
                         
                         
@@ -48,8 +48,8 @@ pipeline {
                         --dns 8.8.8.8 \
                         -v jenkins-cicd_jenkins_home:/var/jenkins_home \
                         -w /var/jenkins_home/workspace/flask-app \
-                        python:3.12-slim \
-                         sh /var/jenkins_home/workspace/flask-app/test.sh
+                        flask-ci:latest \
+                        sh /var/jenkins_home/workspace/flask-app/test.sh
                         
                         
                         
