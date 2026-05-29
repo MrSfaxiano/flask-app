@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "MrSfaxiano/flask-app"
+        IMAGE_NAME = "docker.io/mrsfaxiano/flask-app"
         IMAGE_TAG  = "${env.GIT_COMMIT[0..6]}"
         REGISTRY_CREDENTIALS = 'dockerhub-credentials'
     }
