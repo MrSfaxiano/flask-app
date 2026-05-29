@@ -28,10 +28,13 @@ pipeline {
                 echo 'Running flake8 linter...'
                 sh """
                     docker run --rm \
-                        -v ${WORKSPACE}:/app \
-                        -w /app \
+                        -v jenkins-cicd_jenkins_home:/var/jenkins_home \
+                        -w /var/jenkins_home/workspace/flask-app \
                         python:3.12-slim \
-                        sh '/app/lint.sh'
+                        sh /var/jenkins_home/workspace/flask-app/lint.sh 
+                        
+                        
+                        
                 """
             }
         }
@@ -41,10 +44,13 @@ pipeline {
                 echo 'Running unit tests...'
                 sh """
                     docker run --rm \
-                        -v ${WORKSPACE}:/app \
-                        -w /app \
+                        -v jenkins-cicd_jenkins_home:/var/jenkins_home \
+                        -w /var/jenkins_home/workspace/flask-app \
                         python:3.12-slim \
-                        sh '/app/test.sh'
+                         sh /var/jenkins_home/workspace/flask-app/test.sh
+                        
+                        
+                        
                 """
             }
             post {
