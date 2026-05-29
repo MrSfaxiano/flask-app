@@ -31,7 +31,7 @@ pipeline {
                         -v ${WORKSPACE}:/app \
                         -w /app \
                         python:3.12-slim \
-                        sh lint.sh
+                        sh \app\lint.sh
                 """
             }
         }
@@ -44,7 +44,7 @@ pipeline {
                         -v ${WORKSPACE}:/app \
                         -w /app \
                         python:3.12-slim \
-                        sh test.sh
+                        sh \app\test.sh
                 """
             }
             post {
