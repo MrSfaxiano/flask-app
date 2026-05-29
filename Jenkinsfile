@@ -28,6 +28,7 @@ pipeline {
                 echo 'Running flake8 linter...'
                 sh """
                     docker run --rm \
+                        --dns 8.8.8.8 \
                         -v jenkins-cicd_jenkins_home:/var/jenkins_home \
                         -w /var/jenkins_home/workspace/flask-app \
                         python:3.12-slim \
@@ -44,6 +45,7 @@ pipeline {
                 echo 'Running unit tests...'
                 sh """
                     docker run --rm \
+                        --dns 8.8.8.8 \
                         -v jenkins-cicd_jenkins_home:/var/jenkins_home \
                         -w /var/jenkins_home/workspace/flask-app \
                         python:3.12-slim \
