@@ -71,6 +71,33 @@ pipeline {
                 
             }
         }
+        stage('Scan') {
+            steps {
+                echo 'Scanning image for vulnerabilities with Trivy...'
+                sh """
+                    trivy image \
+                        --exit-code 1 \
+                        --severity HIGH,CRITICAL \
+                        --no-progress \
+                        --format table \
+                        ${env.IMAGE_NAME}:${env.IMAGE_TAG}
+                """
+            }
+            post {
+                always {
+                    sh """
+                        trivy image \
+                            --exit-code 0 \
+                            --severity HIGH,CRITICAL \
+                            --no-progress \
+                            --format json \
+                            -o trivy-report.json \
+                            ${env.IMAGE_NAME}:${env.IMAGE_TAG}
+                    """
+                    archiveArtifacts artifacts: 'trivy-report.json', allowEmptyArchive: true
+                }
+            }
+        }
 
         stage('Push') {
             steps {
