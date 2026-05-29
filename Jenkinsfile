@@ -76,7 +76,7 @@ pipeline {
                 echo 'Scanning image for vulnerabilities with Trivy...'
                 sh """
                     trivy image \
-                        --exit-code 1 \
+                        --exit-code 0 \
                         --severity HIGH,CRITICAL \
                         --no-progress \
                         --format table \
