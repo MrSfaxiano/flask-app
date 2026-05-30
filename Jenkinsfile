@@ -129,6 +129,12 @@ pipeline {
                         ${IMAGE_NAME}:${IMAGE_TAG}
                 '''
                 echo "App deployed at http://localhost:5000/health"
+                sh """
+                    curl -s -X POST http://grafana:3000/api/annotations \
+                    -H 'Content-Type: application/json' \
+                    -u admin:admin \
+                    -d '{"text": "Deployed ${env.IMAGE_NAME}:${env.IMAGE_TAG}", "tags": ["deployment", "jenkins"]}'
+                """
             }
         }
 
